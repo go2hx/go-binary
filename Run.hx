@@ -15,7 +15,10 @@ function buildBinary() {
 	for (GOOS in GOOS_LIST) {
 		for (GOARCH in GOARCH_LIST) {
 			final exec = 'go.${GOOS}_$GOARCH';
-			final cmd = 'GOOS=$GOOS GOARCH=$GOARCH go build -ldflags "-s -w" -o $exec cmd/go';
+			var ext = "";
+			if (GOOS == "windows")
+				ext = ".exe";
+			final cmd = 'GOOS=$GOOS GOARCH=$GOARCH go build -ldflags "-s -w" -o $exec cmd/go' + ext;
 			Sys.println(cmd);
 			Sys.command(cmd);
 		}
